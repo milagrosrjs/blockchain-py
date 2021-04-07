@@ -1,17 +1,17 @@
-import os
-import sys
-
 import unittest
+import sys
+import os
 
-root_folder = os.path.abspath(os.path.dirname(os.path.disrname(os.path.abspath(__file__))))
-sys.path.append(root_folder)
+ruta = os.path.abspath(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(ruta)
 
-from src.blockchain import Block
+from src.blockchain import Bloque, Blockchain
 
-class Test(unittets.TestCase):
-    def test_block(self):
-        test = Block ("test@test.com", 1, "a")
-        self.assertEqual(test.motivo, 1)
+class Test(unittest.TestCase):
+    def test_bloque(self):
+        test= Blockchain()
+        self.assertEqual(test.cadena[0].email,"")
+        self.assertTrue(test.cadena[0].hashBlq)
 
-if __name__ == __main__:
-    inittest.main()
+if __name__ == '__main__':
+    unittest.main() 
