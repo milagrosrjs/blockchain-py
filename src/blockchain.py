@@ -3,14 +3,15 @@ from hashlib import sha256
 import json
 
 class Bloque:
-    def __init__(self, mail, razon, archivo, hashAnt, hashBlq, hashVer):
+    def __init__(self, index, mail, razon, hashArchivo, hashAnt):
+        self.index = index
         self.mail = mail
         self.razon = razon
-        self.archivo = archivo
+        self.hashArchivo = hashArchivo
         #self.tiempo = datetime.now()
         self.hashAnt = hashAnt
-        self.hashBlq = hashBlq
-        self.hashVer = hashVer
+        self.hashBlq = self.crearHash()
+        
 
     def crearHash(self):
         hash = json.dumps(self.__dict__, sort_keys=True)
@@ -22,6 +23,11 @@ class Blockchain:
         self.crearGenesis()
 
     def crearGenesis(self):
-        bloqueGenesis = Bloque("", "", "", "0", "0", "0")
-        bloqueGenesis.hashBlq = bloqueGenesis.crearHash()
+        bloqueGenesis = Bloque(0, "", "", "0", "0")
         self.cadena.append(bloqueGenesis) 
+
+    def crearBloque(self):
+        pass
+
+    def getHashByIndex(self, index):
+        return self.cadena[index].hashBlq
