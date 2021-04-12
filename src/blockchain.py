@@ -1,21 +1,5 @@
+from src.bloque import Bloque
 from datetime import datetime
-from hashlib import sha256
-import json
-
-class Bloque:
-    def __init__(self, index, mail, razon, hashArchivo, hashAnt):
-        self.index = index
-        self.mail = mail
-        self.razon = razon
-        self.hashArchivo = hashArchivo
-        #self.tiempo = datetime.now()
-        self.hashAnt = hashAnt
-        self.hashBlq = self.crearHash()
-        
-
-    def crearHash(self):
-        hash = json.dumps(self.__dict__, sort_keys=True)
-        return sha256(hash.encode()).hexdigest()
 
 class Blockchain:
     def __init__(self):
@@ -23,11 +7,25 @@ class Blockchain:
         self.crearGenesis()
 
     def crearGenesis(self):
-        bloqueGenesis = Bloque(0, "", "", "0", "0")
-        self.cadena.append(bloqueGenesis) 
+        bloqueGenesis = Bloque(0, "", "", "0", "0", "2021-01-01 00:00:00")
+        self.cadena.append(bloqueGenesis)
+    
+    def crearBloque(self, cor, mot, hashArc):
+        newBloque = Bloque(self.getNextBloqueIndex(), cor, mot, hashArc, self.getPreviusBloqueHash(), "2021-01-01 22:00:00")
+        self.cadena.append(newBloque)
 
-    def crearBloque(self):
-        pass
+    def getNextBloqueIndex(self):
+        return len(self.cadena)
+
+    def getPreviusBloqueHash(self):
+        return self.getHashByIndex(self.getNextBloqueIndex() - 1)
+
+    def getDateTimeString(self): 
+        datatime = datetime.now()
+        return datatime.isoformat()
+
+    def getFormatDate(self, timestamp):
+        return datetime.datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S')
 
     def getHashByIndex(self, index):
-        return self.cadena[index].hashBlq
+        return self.cadena[index].hashBloque
