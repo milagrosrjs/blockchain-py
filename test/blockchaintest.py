@@ -44,5 +44,10 @@ class Test(unittest.TestCase):
         self.assertEqual("2021-01-01 22:00:00", test.cadena[1].timestamp)
         self.assertEqual('001dafe88b0d14e0cc71ce06947dd750f74a46c74d0fc0879484fa42a439b048', test.getHashByIndex(1))
 
+    def test_si_singleton_debe_ser_verdadero_cuando_singleton_funcione(self):
+         testSingleton1 = Blockchain()
+         testSingleton2 = Blockchain()
+         message = "El test del Singleton no funciona"
+         self.assertTrue(id(testSingleton1) == id(testSingleton2), message)
 if __name__ == '__main__':
     unittest.main()
