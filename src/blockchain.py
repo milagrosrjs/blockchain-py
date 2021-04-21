@@ -8,13 +8,13 @@ from src.singleton import Singleton
 from src.bloque import Bloque
 from datetime import datetime
 
-class Blockchain(metaclass=Singleton):
+class Blockchain(metaclass=Singleton): #clase blockchain con singleton
     def __init__(self):
-        self.__cadena = []
-        self.__zero_count = 0
+        self.__cadena = [] #almacena los bloques de la blockchain
+        self.__zero_count = 0 #Cambiar complejidad
         self.__crearGenesis()
         
-    def __crearGenesis(self):
+    def __crearGenesis(self): #crea bloque genesis con los atributos de Bloque
         bloqueGenesis = Bloque(0, "", "", "0", "0", "2021-01-01 00:00:00", self.__zero_count)
         self.__cadena.append(bloqueGenesis)
     
@@ -22,7 +22,7 @@ class Blockchain(metaclass=Singleton):
         newBloque = Bloque(self.__getNextBloqueIndex(), cor, mot, hashArc, self.__getPreviusBloqueHash(), timestamp, self.__zero_count)
         self.__cadena.append(newBloque)
 
-    def __getNextBloqueIndex(self):
+    def __getNextBloqueIndex(self): #devuelve el id de bloque
         return len(self.__cadena)
 
     def __getPreviusBloqueHash(self):
@@ -49,4 +49,4 @@ class Blockchain(metaclass=Singleton):
         for bloque in self.__cadena:
             if hash == bloque.hashBloque:
                 return bloque
-        return 'none'
+        

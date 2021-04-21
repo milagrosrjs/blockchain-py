@@ -14,7 +14,7 @@ test = Blockchain()
     
 class BloquesIgualesTest(unittest.TestCase):
 
-    def test_dos_bloques_should_to_be_true_when_ambos_son_igual(self):
+    def test_dos_bloques_debe_ser_true_cuando_ambos_son_iguales(self):
         bloque1 = Bloque(0, 'correo@prueba.com', 'prueba2BloquesIguales', 'hash_archivo', 'hash_anterior', '2021-04-11 21:00:00', 0)
         bloque2 = Bloque(0, 'correo@prueba.com', 'prueba2BloquesIguales', 'hash_archivo', 'hash_anterior', '2021-04-11 21:00:00', 0)
         self.assertEqual(bloque1.hashBloque, bloque2.hashBloque)
