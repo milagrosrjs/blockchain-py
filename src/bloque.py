@@ -16,7 +16,7 @@ class Bloque:
 
     def crearHash(self, zero_count):
         if zero_count == 0:
-            zero_count = 2 if (datetime.today().day % 2 == 0 ) else 1
+            zero_count = 2 if (datetime.strptime(self.timestamp, '%Y-%m-%d %H:%M:%S').day % 2 == 0 ) else 1
         while True:
             newHash = self.hash()
             if newHash[0:zero_count] == '0' * zero_count:

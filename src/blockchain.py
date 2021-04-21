@@ -2,8 +2,10 @@ import os
 import sys
 import json
 from bson import json_util
-from singleton import Singleton
-from bloque import Bloque
+root_folder = os.path.abspath(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(root_folder)
+from src.singleton import Singleton
+from src.bloque import Bloque
 from datetime import datetime
 
 class Blockchain(metaclass=Singleton):
@@ -27,7 +29,7 @@ class Blockchain(metaclass=Singleton):
         return self.getHashByIndex(self.__getNextBloqueIndex() - 1)
 
     def crearBloque(self, cor, mot, hashArc):
-        newBloque = Bloque(self.__getNextBloqueIndex(), cor, mot, hashArc, self.__getPreviusBloqueHash(), datetime.utcnow, self.__zero_count)
+        newBloque = Bloque(self.__getNextBloqueIndex(), cor, mot, hashArc, self.__getPreviusBloqueHash(),datetime.now().strftime("%Y-%m-%d %H:%M:%S"), self.__zero_count)
         self.__cadena.append(newBloque)
 
     def getHashByIndex(self, index):
@@ -37,7 +39,8 @@ class Blockchain(metaclass=Singleton):
         return self.__cadena[index]
     
     def getJsonBloqueByIndex(self, index):
-        return json.dumps(self.__cadena[index], sort_keys=True, default=json_util.default)
+        bloque = self.__cadena[index]
+        return json.dumps(bloque.__dict__, sort_keys=True, default=json_util.default)
 
     def setZero_count(self, count):
         self.__zero_count = count
