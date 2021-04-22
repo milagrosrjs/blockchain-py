@@ -17,7 +17,7 @@ test = Blockchain()
 #Agregro bloque1 a la blockchain
 test._Blockchain__crearBloque("correo@bloqueOne.com", "prueba", "hashArc", "2021-01-01 22:00:00")
 #Agregro bloque2 a la blockchain
-test._Blockchain__crearBloque("correo@bloqueOne.com", "pruebaBloque2", "hashArc", "2021-01-01 22:00:10")
+test._Blockchain__crearBloque("correo@bloqueOne.com", "pruebaBloque2", "hashArc", "2021-01-02 22:00:10")
 
 class BlockchainTest(unittest.TestCase):
     
@@ -48,8 +48,8 @@ class BlockchainTest(unittest.TestCase):
         self.assertEqual("pruebaBloque2", bloque2.motivo)
         self.assertEqual("hashArc", bloque2.hashArc)
         self.assertEqual("05972bdddaffebafb024ab5f22c3acd65a9e81c0d514277715e60d36cc479024", bloque2.hashAnt)
-        self.assertEqual("2021-01-01 22:00:10", bloque2.timestamp)
-        self.assertEqual('09063012d43b42aa3ef871e38571094bbb1dd5bb474911659a72d0d3ee521c4c', test.getHashByIndex(2))
+        self.assertEqual("2021-01-02 22:00:10", bloque2.timestamp)
+        self.assertEqual('003cfd7d090b33e1e5be0c6a9f6dfe48854a0c612f7de05b6bd88795ce43db82', test.getHashByIndex(2))
 
     def test_4_de_bloque_por_hash_debe_ser_true_cuando_bloque_dos_index_es_1(self): #trae bloque segun hash
         bloqueHash = test.getBlockByHash("074c114814e06a532e2d1576e6b2263b150bd9ea7794b1e4db86f8a65281071a")
@@ -60,5 +60,14 @@ class BlockchainTest(unittest.TestCase):
         bloque = test.getJsonBloqueByIndex(1)
         print(bloque)
         self.assertEqual(json.loads(bloque)["index"], 1)
+
+    def test_6_de_BlockChain_comprueba_que_debe_ser_true_si_BlockChain_esta_correcta(self):
+        message = "BlockChain is Corrupted"
+        self.assertTrue(test.comprueba(), message)
+    
+    def test_7_de_ultimo_bloque_debe_ser_true_cuando_bloque_tiene_index_negativo_1(self):
+        bloqueHash = test.lastBlock()
+        bloque = test.getBloqueByIndex(-1)
+        self.assertEqual(bloque, bloqueHash)
 
 if __name__ == '__main__': unittest.main()

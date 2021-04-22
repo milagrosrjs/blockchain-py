@@ -50,3 +50,17 @@ class Blockchain(metaclass=Singleton): #clase blockchain con singleton
             if hash == bloque.hashBloque:
                 return bloque
         
+    def comprueba(self):
+        hash = '0'
+        for bloque in self.__cadena:
+            if bloque.hashAnt == hash:
+                hash = bloque.hashBloque
+            else:
+                return False
+        if self.lastBlock().hashBloque == hash:
+            return True
+        else:
+            return False
+    
+    def lastBlock(self):
+        return self.__cadena[-1]
